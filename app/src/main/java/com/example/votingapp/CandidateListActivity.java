@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,14 @@ public class CandidateListActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.listview);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, candidates);
         listView.setAdapter(adapter);
+
+        Button btnSubmitVote = (Button) findViewById(R.id.btn_submit);
+        btnSubmitVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openConfirmationActivity();
+            }
+        });
 
 
     }

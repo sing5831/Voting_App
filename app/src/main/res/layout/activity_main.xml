@@ -7,6 +7,18 @@
     tools:context=".MainActivity">
 
 
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dob"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_custom"
+        android:text="Signup"
+        android:textColor="@android:color/white" />
+
     <EditText
         android:id="@+id/email_signup"
         android:layout_width="match_parent"
@@ -16,12 +28,12 @@
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="textEmailAddress"
-        android:layout_above="@id/passwd_signup"
+        android:layout_above="@id/dob"
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/passwd_signup"
+        android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Password"
@@ -38,28 +50,12 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwd_signup"
+        android:layout_below="@id/dob"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="31dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/btn_custom"
         android:text="Login"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:id="@+id/btn_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="131dp"
-        android:background="@drawable/btn_custom"
-        android:text="Signup"
         android:textColor="@android:color/white" />
 
     <TextView

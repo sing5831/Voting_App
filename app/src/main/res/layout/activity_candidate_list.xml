@@ -6,14 +6,28 @@
 
     <ListView
         android:id="@+id/listview"
-        android:layout_width="325dp"
-        android:layout_height="605dp"
+        android:layout_width="310dp"
+        android:layout_height="446dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="45dp"
         android:layout_marginTop="82dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="44dp" />
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="203dp" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="595dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="77dp"
+        android:text="Submit Vote" />
 </RelativeLayout>
