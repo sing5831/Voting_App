@@ -8,6 +8,15 @@ public class UserResponse_Signup {
     private String address;
     private String email;
     private String date_of_birth;
+    private String driving_license;
+
+    public String getDriving_license() {
+        return driving_license;
+    }
+
+    public void setDriving_license(String driving_license) {
+        this.driving_license = driving_license;
+    }
 
     public int getId() {
         return id;

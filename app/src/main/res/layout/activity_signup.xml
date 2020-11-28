@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SignupActivity">
 
+
     <TextView
         android:id="@+id/tv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="571dp"
         android:text="Register"
         android:textAlignment="center"
-        android:textSize="50sp"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="60dp"/>
-
+        android:textSize="50sp" />
 
     <EditText
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="504dp"
         android:background="@drawable/et_custom"
         android:hint="First Name"
         android:inputType="textPersonName"
@@ -36,35 +39,38 @@
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Last Name"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:padding="15dp"
-        android:inputType="textPersonName"
+        android:layout_marginBottom="443dp"
         android:background="@drawable/et_custom"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:padding="15dp"
         android:textSize="15sp" />
 
     <EditText
         android:id="@+id/email_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="E_mail"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:padding="15dp"
-        android:inputType="textEmailAddress"
+        android:layout_marginBottom="377dp"
         android:background="@drawable/et_custom"
+        android:hint="E_mail"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
         android:textSize="15sp" />
 
     <EditText
         android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="318dp"
         android:background="@drawable/et_custom"
         android:hint="Date of Birth"
         android:inputType="date"
@@ -75,51 +81,62 @@
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="260dp"
         android:background="@drawable/et_custom"
         android:hint="Address"
         android:inputType="textPostalAddress"
         android:padding="15dp"
         android:textSize="15sp" />
 
-    <RelativeLayout
+    <EditText
+        android:id="@+id/license"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="201dp"
+        android:background="@drawable/et_custom"
+        android:hint="Driving License Number"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/btn_custom"
-            android:text="Next"
-            android:textColor="@android:color/white" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="127dp"
+        android:background="@drawable/btn_custom"
+        android:text="Next"
+        android:textColor="@android:color/white" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_arrow_left"
-            android:layout_above="@id/swipeLeft"
-            android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_above="@id/swipeLeft"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_arrow_left" />
 
 
-        <TextView
-            android:id="@+id/swipeLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="swipe_right_for_login"
-            android:textSize="15sp"
+    <TextView
+        android:id="@+id/swipeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
 
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:text="swipe_right_for_login"
+        android:textSize="15sp" />
 
-    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,21 +1,22 @@
 package com.example.votingapp;
 
 public class UserRequest_Signup {
-
-    private int user_id;
     private String first_name;
     private String last_name;
     private String address;
     private String email;
     private String date_of_birth;
+    private String driving_license;
 
-    public int getUser_id() {
-        return user_id;
+    public String getDriving_license() {
+        return driving_license;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setDriving_license(String driving_license) {
+        this.driving_license = driving_license;
     }
+
+
 
     public String getFirst_name() {
         return first_name;

@@ -1,16 +1,15 @@
 package com.example.votingapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-public class CandidateListActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class CandidateListActivity extends AppCompatActivity {
 
     String candidates[] = new String[]{"Donald Trump", "Joe Biden", "Kamala Harris", "Bernie Sanders"};
 

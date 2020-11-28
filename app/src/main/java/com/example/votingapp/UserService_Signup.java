@@ -6,6 +6,9 @@ import retrofit2.http.POST;
 
 public interface UserService_Signup {
 
+   @POST("authenticate/")
+   Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
+
     @POST("users/")
     Call<UserResponse_Signup>saveUser(@Body UserRequest_Signup userRequest_signup);
 
