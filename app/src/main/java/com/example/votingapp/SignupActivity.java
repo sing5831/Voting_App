@@ -1,21 +1,9 @@
 package com.example.votingapp;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class SignupActivity extends AppCompatActivity {
-
+/*
     EditText fname;
     EditText lname;
     EditText email, add, dofb, d_license;
@@ -64,7 +52,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
-/*
+
     public UserRequest_Signup createrequest(){
 
         UserRequest_Signup userRequest_signup = new UserRequest_Signup();
@@ -79,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
- */
+
 
     public void saveUser(UserRequest_Signup userRequest_signup){
         Call<UserResponse_Signup> userResponse_signupCall = ApiClient.getUserService().saveUser(userRequest_signup);
@@ -104,5 +92,5 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-
+*/
 }

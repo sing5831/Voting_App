@@ -24,15 +24,16 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="221dp"
-        android:layout_height="99dp"
+        android:layout_width="250dp"
+        android:layout_height="171dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="488dp"
-        android:layout_marginEnd="91dp"
-        android:layout_marginBottom="144dp"
-        android:text="Your vote has been recorded successfully!" />
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="464dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="96dp"
+        android:text="Your vote has been recorded successfully!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 </RelativeLayout>

@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class
                 ));
             }
         });
@@ -50,10 +50,10 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, AgreementActivity.class
                     ));
 
-                    LoginRequest loginRequest = new LoginRequest();
-                    loginRequest.setEmail(email.getText().toString());
-                    loginRequest.setPin(pin.getText().toString());
-                    loginUser(loginRequest);
+                    //LoginRequest loginRequest = new LoginRequest();
+                    //loginRequest.setEmail(email.getText().toString());
+                    //loginRequest.setPin(pin.getText().toString());
+                    //loginUser(loginRequest);
 
 
                 }

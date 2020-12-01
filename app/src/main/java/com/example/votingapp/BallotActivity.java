@@ -1,11 +1,13 @@
 package com.example.votingapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,39 +23,37 @@ public class BallotActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList<BallotModel> arrayList;
-    SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidate_list);
         listView = (ListView) findViewById(R.id.listview);
-        //swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openConfirmationActivity();
+            }
+        });
 
         arrayList = new ArrayList<>();
         new fetchData().execute();
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new fetchData().execute();
-            }
-        });
+    }
+    public void openConfirmationActivity(){
+        Intent intent = new Intent(this, ConfirmationActivity.class);
+        startActivity(intent);
     }
 
     public class fetchData extends AsyncTask<String, String, String> {
-
-        @Override
-        public void onPreExecute() {
-            super .onPreExecute();
-            swipeRefresh.setRefreshing(true);
-        }
 
         @Override
         protected String doInBackground(String... params) {
             arrayList.clear();
             String result = null;
             try {
-                URL url = new URL("");
+                URL url = new URL("https://reqres.in/api/users?page=2");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
 
@@ -80,7 +80,7 @@ public class BallotActivity extends AppCompatActivity {
         @Override
         public void onPostExecute(String s) {
             super .onPostExecute(s);
-            swipeRefresh.setRefreshing(false);
+
             try {
                 JSONObject object = new JSONObject(s);
                 JSONArray array = object.getJSONArray("data");
@@ -96,7 +96,7 @@ public class BallotActivity extends AppCompatActivity {
                     BallotModel model = new BallotModel();
                     model.setId(id);
                     model.setName(first_name + " " + last_name);
-                    model.setId(email);
+                    model.setEmail(email);
                     arrayList.add(model);
                 }
             } catch (JSONException  e) {
@@ -108,6 +108,5 @@ public class BallotActivity extends AppCompatActivity {
 
         }
     }
-
 
 }

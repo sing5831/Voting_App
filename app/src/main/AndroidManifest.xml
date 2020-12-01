@@ -26,8 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AgreementActivity"></activity>
-        <activity android:name=".SignupActivity"></activity>
-        <activity android:name=".CandidateListActivity"></activity>
+        <activity android:name=".BallotActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".ConfirmationActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".UploadPhoto"></activity>

@@ -2,6 +2,10 @@ package com.example.votingapp;
 
 public class BallotModel {
 
+    String id;
+    String name;
+    String email;
+
     public String getId() {
         return id;
     }
@@ -18,6 +22,11 @@ public class BallotModel {
         this.name = name;
     }
 
-    String id;
-    String name;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

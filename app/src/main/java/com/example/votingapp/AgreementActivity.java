@@ -15,10 +15,11 @@ public class AgreementActivity extends Activity {
         setContentView(R.layout.activity_agreement);
 
         Button btn =(Button)findViewById( R.id.btn_ballot);
+        btn.setEnabled(false);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCandidateListActivity();
+                startActivity(new Intent(AgreementActivity.this, BallotActivity.class));
             }
         });
 
@@ -39,9 +40,6 @@ public class AgreementActivity extends Activity {
 
     }
 
-    public void openCandidateListActivity(){
-        Intent intent = new Intent(this, CandidateListActivity.class);
-        startActivity(intent);
-    }
+
 
 }
