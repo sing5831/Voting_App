@@ -47,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"All inputs Required", Toast.LENGTH_LONG);
                 }
                 else{
+                    startActivity(new Intent(LoginActivity.this, AgreementActivity.class
+                    ));
+
                     LoginRequest loginRequest = new LoginRequest();
                     loginRequest.setEmail(email.getText().toString());
                     loginRequest.setPin(pin.getText().toString());

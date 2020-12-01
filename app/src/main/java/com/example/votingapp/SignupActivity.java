@@ -46,6 +46,9 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this,"All inputs Required", Toast.LENGTH_LONG);
                 }
                 else{
+
+                    startActivity(new Intent(SignupActivity.this, UploadPhoto.class));
+
                     UserRequest_Signup userRequest_signup = new UserRequest_Signup();
                     userRequest_signup.setFirst_name(fname.getText().toString());
                     userRequest_signup.setLast_name(lname.getText().toString());

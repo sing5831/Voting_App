@@ -1,6 +1,5 @@
 package com.example.votingapp;
 
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -54,6 +53,13 @@ public class UploadPhoto extends AppCompatActivity {
             }
         });
 
+        Button back = findViewById(R.id.back_login);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UploadPhoto.this, LoginActivity.class));
+            }
+        });
 
         permissions.add(CAMERA);
         permissions.add(WRITE_EXTERNAL_STORAGE);
