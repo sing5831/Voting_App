@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
 
-        content    =   (TextView)findViewById( R.id.content );
+        content    =  findViewById( R.id.content );
         fname = findViewById(R.id.first_name);
         lname = findViewById(R.id.last_name);
         email = findViewById(R.id.email_signup);
