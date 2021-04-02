@@ -2,8 +2,6 @@ package com.example.votingapp;
 
 import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +13,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class FetchCandidateList extends AsyncTask<Void, Void,  Void> {
 
@@ -25,7 +22,7 @@ public class FetchCandidateList extends AsyncTask<Void, Void,  Void> {
     @Override
     protected Void doInBackground(Void... voids){
         try{
-            URL url = new URL("");
+            URL url = new URL("http://192.168.2.15/api/candidates");
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -39,7 +36,7 @@ public class FetchCandidateList extends AsyncTask<Void, Void,  Void> {
             JSONArray JA = new JSONArray(data);
             for(int i=0; i<JA.length(); i++){
                 JSONObject JO = (JSONObject) JA.get(i);
-                candidateName = "Candidate_Name" + JO.get("name") + "\n";
+                candidateName = "CandidateName" + JO.get("CandidateName") + "\n";
             }
 
         }

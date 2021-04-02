@@ -3,7 +3,7 @@ package com.example.votingapp;
 public class LoginRequest {
 
     private String email;
-    private String pin;
+    private String password;
 
     public String getEmail() {
         return email;
@@ -13,12 +13,12 @@ public class LoginRequest {
         this.email = email;
     }
 
-    public String getPin() {
-        return pin;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setPassword(String pin) {
+        this.password = password;
     }
 
 

@@ -1,12 +1,22 @@
 package com.example.votingapp;
 
-public class UserRequest_Signup {
+public class UserModel {
+    private int user_id;
     private String first_name;
     private String last_name;
     private String address;
     private String email;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
     private String date_of_birth;
-    private String driving_license;
 
     public String getDriving_license() {
         return driving_license;
@@ -16,7 +26,17 @@ public class UserRequest_Signup {
         this.driving_license = driving_license;
     }
 
+    private String driving_license;
 
+
+
+    public int getId() {
+        return user_id;
+    }
+
+    public void setId(int id) {
+        this.user_id = user_id;
+    }
 
     public String getFirst_name() {
         return first_name;

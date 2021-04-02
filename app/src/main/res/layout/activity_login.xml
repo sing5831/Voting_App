@@ -29,6 +29,7 @@
         android:layout_marginBottom="393dp"
         android:background="@drawable/et_custom"
         android:hint="E_mail"
+        android:text=""
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -44,6 +45,7 @@
         android:layout_marginBottom="334dp"
         android:background="@drawable/et_custom"
         android:hint="PIN"
+        android:text=""
         android:inputType="textPassword"
         android:padding="15dp"
         android:textSize="15sp" />

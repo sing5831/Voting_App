@@ -1,20 +1,27 @@
 package com.example.votingapp;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -22,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText fname;
     EditText lname;
     EditText email, add, dofb, d_license;
-    Button register;
+    Button reg;
     String First_Name, Last_Name, Email, Address, DOB, License;
 
 
@@ -39,106 +46,89 @@ public class RegisterActivity extends AppCompatActivity {
         add = findViewById(R.id.address);
         dofb = findViewById(R.id.dob);
         d_license = findViewById(R.id.license);
-        register = findViewById(R.id.btn_next);
+        reg = findViewById(R.id.btn_nxt);
 
-        register.setOnClickListener(new Button.OnClickListener(){
 
+
+        reg.setOnClickListener(new View.OnClickListener(){
+            @Override
             public void onClick(View v)
             {
                 try{
 
-                    // CALL GetText method to make post method call
-                    GetText();
+                    AsyncT asyncT = new AsyncT();
+                    asyncT.execute();
+                    Toast t = Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_LONG);
+                    t.show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
                 }
                 catch(Exception ex)
                 {
-                    content.setText(" url exeption! " );
+                    content.setText("url exeption!" );
                 }
             }
         });
+
     }
 
     // Create GetText Metod
-    public  void  GetText()  throws UnsupportedEncodingException
-    {
-        // Get user defined values
+    class AsyncT extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            AsyncMethod();
+            return null;
+        }
+
+    }
+
+    private void AsyncMethod() {
         First_Name = fname.getText().toString();
         Last_Name = lname.getText().toString();
-        Email   = email.getText().toString();
-        DOB   = dofb.getText().toString();
-        Address   = add.getText().toString();
+        DOB = dofb.getText().toString();
+        Email = email.getText().toString();
         License = d_license.getText().toString();
+        Address = add.getText().toString();
+        try {
+            URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/user"); //Enter URL here
+            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+            httpURLConnection.setRequestProperty("Content-Type", "application/json"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
+            httpURLConnection.connect();
 
-        // Create data variable for sent values to server
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("FirstName", First_Name);
+            jsonObject.put("LastName", Last_Name);
+            jsonObject.put("Email", Email);
+            jsonObject.put("License", License);
+            jsonObject.put("User_Password", Address);
+            Log.d("AsyncMethod: ",jsonObject.toString());
 
-        String data = URLEncoder.encode("fname", "UTF-8")
-                + "=" + URLEncoder.encode(First_Name, "UTF-8");
-        data += "&" + URLEncoder.encode("lname", "UTF-8") + "="
-                + URLEncoder.encode(Last_Name, "UTF-8");
-
-        data += "&" + URLEncoder.encode("email", "UTF-8") + "="
-                + URLEncoder.encode(Email, "UTF-8");
-
-        data += "&" + URLEncoder.encode("dob", "UTF-8")
-                + "=" + URLEncoder.encode(DOB, "UTF-8");
-        data += "&" + URLEncoder.encode("license", "UTF-8") + "="
-                + URLEncoder.encode(License, "UTF-8");
-
-        data += "&" + URLEncoder.encode("add", "UTF-8")
-                + "=" + URLEncoder.encode(Address, "UTF-8");
-
-        String text = "";
-        BufferedReader reader=null;
-
-        // Send data
-        try
-        {
-
-            // Defined URL  where to send data
-            URL url = new URL("");
-
-            // Send POST data request
-
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
+            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+            wr.writeBytes(jsonObject.toString());
             wr.flush();
+            wr.close();
 
-            // Get the server response
-
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-            // Read Server Response
-            while((line = reader.readLine()) != null)
-            {
-                // Append server response in string
-                sb.append(line + "\n");
+            try(BufferedReader br = new BufferedReader(
+                    new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                System.out.println(response.toString());
             }
 
-
-            text = sb.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        catch(Exception ex)
-        {
-
-        }
-        finally
-        {
-            try
-            {
-
-                reader.close();
-            }
-
-            catch(Exception ex) {}
-        }
-
-        // Show response on activity
-        content.setText( text  );
-
     }
 
 }
