@@ -36,7 +36,9 @@ public class BallotActivity extends AppCompatActivity {
         setContentView(R.layout.activity_candidate_list);
         listView = (ListView) findViewById(R.id.listview);
 
-        usermodel.setEmail("nik@abc");
+       //. usermodel.setEmail("nik@abc");
+        String username = getIntent().getStringExtra("Email");
+        usermodel.setEmail(username);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,7 +47,6 @@ public class BallotActivity extends AppCompatActivity {
                 selectedItem = position;
                 AsyncT asyncT = new AsyncT();
                 asyncT.execute();
-
 
                 openConfirmationActivity();
             }
@@ -80,7 +81,7 @@ public class BallotActivity extends AppCompatActivity {
                         stringBuilder.append(temp);
                     }
                     result = stringBuilder.toString();
-                    Log.d("doInBackground: ",result);
+                    Log.d("doInBackgroundCandidateList: ",result);
                 }else  {
                     result = "error";
                 }
@@ -139,8 +140,6 @@ public class BallotActivity extends AppCompatActivity {
     }
 
     private void AsyncMethodVote() {
-
-
         String uemail = usermodel.getEmail();
 
         BallotModel model = arrayList.get(selectedItem);

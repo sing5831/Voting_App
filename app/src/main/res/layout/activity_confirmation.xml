@@ -36,4 +36,19 @@
         android:layout_marginBottom="96dp"
         android:text="Your vote has been recorded successfully!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="643dp"
+        android:text="Logout" />
+
 </RelativeLayout>

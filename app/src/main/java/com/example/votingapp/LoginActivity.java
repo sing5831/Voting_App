@@ -3,6 +3,7 @@ package com.example.votingapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,13 +11,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import static android.text.TextUtils.isEmpty;
@@ -26,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email, pin;
     Button btnLogin, btnSignup;
+    String username, passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
         btnSignup = (findViewById(R.id.btn_signup));
 
-        String username, passwd;
-        username = email.getText().toString();
-        passwd = pin.getText().toString();
+
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
                 else{
-
-
-
-
-
-
-                    startActivity(new Intent(LoginActivity.this, AgreementActivity.class
-                    ));
+                    AsyncTLogin async = new AsyncTLogin();
+                    async.execute();
                 }
             }
         });
@@ -77,156 +73,104 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public class fetchData extends AsyncTask<String, String, String> {
+    class AsyncTLogin extends AsyncTask<Void,Void,String> {
 
         @Override
-        protected String doInBackground(String... params) {
-           // arrayList.clear();
-            String result = null;
-            try {
-                URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/login");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.connect();
+        protected String doInBackground(Void... params) {
 
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    InputStreamReader inputStreamReader = new InputStreamReader(conn.getInputStream());
-                    BufferedReader reader = new BufferedReader(inputStreamReader);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String temp;
-
-                    while ((temp = reader.readLine()) != null) {
-                        stringBuilder.append(temp);
-                    }
-                    result = stringBuilder.toString();
-                }else  {
-                    result = "error";
-                }
-
-            } catch (Exception  e) {
-                e.printStackTrace();
-            }
-            return result;
+            String resp = AsyncMethodLogin();
+            return resp;
         }
+
 
         @Override
-        public void onPostExecute(String s) {
-            super .onPostExecute(s);
+        protected void onPostExecute(String s) {
+            Log.d( "Display s:", s);
+            if(s.isEmpty()){
+                Log.d( "onPostExecute: ", "Empty Response from server");
+            }
+            else{
+                if (s.equals("\"Voted\"")){
 
-            try {
-                JSONObject object = new JSONObject(s);
-                JSONArray array = object.getJSONArray("data");
-
-                for (int i = 0; i < array.length(); i++) {
-
-                    JSONObject jsonObject = array.getJSONObject(i);
-                    int id = jsonObject.getInt("UserId");
-                    String first_name = jsonObject.getString("FirstName");
-                    String last_name = jsonObject.getString("last_name");
-                    String email = jsonObject.getString("Email");
-
-                    UserModel model = new UserModel();
-                    model.setId(id);
-                    model.setFirst_name(first_name);
-                    model.setEmail(email);
-
-
-                   // arrayList.add(model);
+                    startActivity(new Intent(LoginActivity.this, ConfirmationActivity.class));
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                else if(s.equals("\"Success\"")){
 
-            //CustomAdapter adapter = new CustomAdapter(BallotActivity.this, arrayList);
-            //listView.setAdapter(adapter);
-
-        }
-    }
-
-
-
-    public void checkUsername() {
-        /*
-        		if (isEmpty(firstName)) {
-			Toast t = Toast.makeText(this, "You must enter first name to register!", Toast.LENGTH_SHORT);
-			t.show();
-		}
-
-        boolean isEmail(EditText text) {
-            CharSequence email = text.getText().toString();
-            return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-        }
-
-        boolean isEmpty(EditText text) {
-            CharSequence str = text.getText().toString();
-            return TextUtils.isEmpty(str);
-        }
-        boolean isValid = true;
-        if (isEmpty(email.getText())) {
-            email.setError("You must enter username to login!");
-            isValid = false;
-        } else {
-            if (!isEmail(email)) {
-                email.setError("Enter valid email!");
-                isValid = false;
-            }
-        }
-
-        if (isEmpty(pin.getText())) {
-            pin.setError("You must enter password to login!");
-            isValid = false;
-        } else {
-            if (pin.getText().toString().length() < 4) {
-                pin.setError("Password must be at least 4 chars long!");
-                isValid = false;
-            }
-        }
-
-        //check email and password
-        //IMPORTANT: here should be call to backend or safer function for local check; For example simple check is cool
-        //For example simple check is cool
-        if (isValid) {
-            String usernameValue = email.getText().toString();
-            String passwordValue = pin.getText().toString();
-            if (usernameValue.equals("test@test.com") && passwordValue.equals("password1234")) {
-                //everything checked we open new activity
-                Intent i = new Intent(LoginActivity.this, AgreementActivity.class);
-                startActivity(i);
-                //we close this activity
-                this.finish();
-            } else {
-                Toast t = Toast.makeText(this, "Wrong email or password!", Toast.LENGTH_SHORT);
-                t.show();
-            }
-        }
-
-         */
-
-    }
-
-    /*
-    public void loginUser(LoginRequest loginRequest){
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().loginUser(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if(response.isSuccessful()){
-                    LoginResponse loginResponse = response.body();
-                    startActivity(new Intent(LoginActivity.this, LoginActivity.class).putExtra("data", loginResponse));
-                    finish();
+                    Intent intent = new Intent(LoginActivity.this, AgreementActivity.class);
+                    intent.putExtra("Email", username);
+                    startActivity(intent);
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Error occurred", Toast.LENGTH_LONG);
+                    Toast t = Toast.makeText(LoginActivity.this, "Incorrect Username or Password", Toast.LENGTH_LONG);
+                    t.show();
                 }
             }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Failed", Toast.LENGTH_LONG);
-            }
-        });
+        }
     }
+
+    private String AsyncMethodLogin() {
+
+        username = email.getText().toString();
+        passwd = pin.getText().toString();
+
+       // String email = "From Mobile";
+       // String pass = "Navneet24";
+        String resp = "";
+
+        try {
+            URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/login"); //Enter URL here
+            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+            httpURLConnection.setRequestProperty("Content-Type", "application/json"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
+            httpURLConnection.connect();
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Email", username);
+            jsonObject.put("User_Password", passwd);
+
+            Log.d("AsyncMethodLogin: ",jsonObject.toString());
+
+            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+            wr.writeBytes(jsonObject.toString());
+          //  wr.flush();
+           // wr.close();
+
+            try(BufferedReader br = new BufferedReader(
+                    new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                System.out.println(response.toString());
+                resp = response.toString();
+                Log.d("AsyncMethodLoginResponse:",resp);
+/*
+                if(resp.equals("Voted")){
+
+                    startActivity(new Intent(LoginActivity.this, AgreementActivity.class));
+                }
+                else{
+                    Toast t = Toast.makeText(LoginActivity.this, "No Response from server", Toast.LENGTH_LONG);
+                    t.show();
+                }
 */
+            }
 
+            wr.flush();
+            wr.close();
+            Log.d("AsyncMethodLoginResponse1:",resp);
 
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return resp;
+    }
 }
 
