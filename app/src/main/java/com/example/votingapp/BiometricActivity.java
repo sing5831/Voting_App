@@ -3,6 +3,7 @@ package com.example.votingapp;
 import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.biometrics.BiometricPrompt;
 import android.os.Build;
@@ -21,6 +22,7 @@ public class BiometricActivity extends AppCompatActivity {
     private CancellationSignal cancellationSignal;
 
     Button auth;
+    String username;
 
 
 
@@ -28,6 +30,8 @@ public class BiometricActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biometric);
+
+        username = getIntent().getStringExtra("Email");
 
         auth = findViewById(R.id.btn_ath);
 
@@ -92,9 +96,12 @@ public class BiometricActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAuthenticationSucceeded(
-                    BiometricPrompt.AuthenticationResult result) {
+            public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
                 notifyUser("Authentication Succeeded");
+                Intent intent = new Intent(BiometricActivity.this, BallotActivity.class);
+                intent.putExtra("Email", username);
+                startActivity(intent);
+
                 super.onAuthenticationSucceeded(result);
             }
         };

@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.text.TextUtils.isEmpty;
+
 public class RegisterActivity extends AppCompatActivity {
 
     TextView content;
@@ -54,19 +56,30 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                try{
-
-                    AsyncT asyncT = new AsyncT();
-                    asyncT.execute();
-                    Toast t = Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_LONG);
-                    t.show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-
-                }
-                catch(Exception ex)
+                if (isEmpty(email.getText().toString()) || isEmpty(fname.getText().toString()) || isEmpty(lname.getText().toString()) ||
+                isEmpty(add.getText().toString()) || isEmpty(dofb.getText().toString()) || isEmpty(d_license.getText().toString()))
                 {
-                    content.setText("url exeption!" );
+                    Toast t = Toast.makeText(RegisterActivity.this, "All inputs required", Toast.LENGTH_LONG);
+                    t.show();
+
                 }
+                else{
+                    try{
+
+                        AsyncT asyncT = new AsyncT();
+                        asyncT.execute();
+                        Toast t = Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_LONG);
+                        t.show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
+                    }
+                    catch(Exception ex)
+                    {
+                        content.setText("url exeption!" );
+                    }
+
+                }
+
             }
         });
 
@@ -103,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
             jsonObject.put("FirstName", First_Name);
             jsonObject.put("LastName", Last_Name);
             jsonObject.put("Email", Email);
+            jsonObject.put("DOB", DOB);
             jsonObject.put("License", License);
             jsonObject.put("User_Password", Address);
             Log.d("AsyncMethod: ",jsonObject.toString());

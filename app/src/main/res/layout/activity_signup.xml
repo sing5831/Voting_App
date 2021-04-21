@@ -70,7 +70,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="318dp"
+        android:layout_marginBottom="261dp"
         android:background="@drawable/et_custom"
         android:hint="Date of Birth"
         android:inputType="date"
@@ -84,10 +84,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="320dp"
         android:background="@drawable/et_custom"
-        android:hint="Address"
-        android:inputType="textPostalAddress"
+        android:hint="Password"
+        android:inputType="none|textPassword"
         android:padding="15dp"
         android:textSize="15sp" />
 

@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 if (s.equals("\"Voted\"")){
 
-                    startActivity(new Intent(LoginActivity.this, ConfirmationActivity.class));
+                    startActivity(new Intent(LoginActivity.this, StatusVotedActivity.class));
                 }
                 else if(s.equals("\"Success\"")){
 

@@ -23,7 +23,7 @@ public class AgreementActivity extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AgreementActivity.this, BallotActivity.class);
+                Intent intent = new Intent(AgreementActivity.this, BiometricActivity.class);
                 intent.putExtra("Email", username);
                 startActivity(intent);
             }
