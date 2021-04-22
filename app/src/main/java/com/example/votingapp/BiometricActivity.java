@@ -123,7 +123,7 @@ public class BiometricActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.P)
     public void authenticateUser(View view) {
         BiometricPrompt biometricPrompt = new BiometricPrompt.Builder(this)
-                .setTitle("Biometric Demo")
+                .setTitle("Fingerprint Authorization")
                 .setSubtitle("Authentication is required to continue")
                 .setDescription("This app uses biometric authentication to protect your data.")
                 .setNegativeButton("Cancel", this.getMainExecutor(),

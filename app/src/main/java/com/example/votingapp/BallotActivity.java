@@ -31,6 +31,12 @@ public class BallotActivity extends AppCompatActivity {
     UserModel usermodel = new UserModel();
 
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(BallotActivity.this, LoginActivity.class));
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidate_list);

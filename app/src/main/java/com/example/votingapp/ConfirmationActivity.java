@@ -19,33 +19,20 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.btn_logout);
 
+
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmationActivity.this);
-                builder.setTitle("Confirmation PopUp!").
-                        setMessage("You sure, that you want to logout?");
-                builder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent i = new Intent(getApplicationContext(),
-                                        LoginActivity.class);
-                                startActivity(i);
-                            }
-                        });
-                builder.setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert11 = builder.create();
-                alert11.show();
-*/
+
                 startActivity(new Intent(ConfirmationActivity.this, LoginActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ConfirmationActivity.this, LoginActivity.class));
     }
 
 }

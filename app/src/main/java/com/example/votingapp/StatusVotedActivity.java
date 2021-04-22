@@ -10,6 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StatusVotedActivity extends AppCompatActivity {
 
     Button logout1;
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(StatusVotedActivity.this, LoginActivity.class));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

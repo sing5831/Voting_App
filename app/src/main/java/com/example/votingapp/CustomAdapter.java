@@ -44,7 +44,7 @@ public class CustomAdapter extends BaseAdapter {
         name = (TextView) convertView.findViewById(R.id.name);
         email = (TextView) convertView.findViewById(R.id.email);
         name.setText(arrayList.get(position).getName());
-        email.setText(arrayList.get(position).getId());
+        email.setText("Candidate Id: " + arrayList.get(position).getId());
 
         return convertView;
     }

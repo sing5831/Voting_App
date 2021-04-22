@@ -32,6 +32,11 @@ public class LoginActivity extends AppCompatActivity {
     String username, passwd;
 
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
