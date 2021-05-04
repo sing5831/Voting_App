@@ -73,7 +73,7 @@ public class BallotActivity extends AppCompatActivity {
             arrayList.clear();
             String result = null;
             try {
-                URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/candidates");
+                URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/vote");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
 

@@ -3,6 +3,7 @@ package com.example.votingapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,11 +29,13 @@ import static android.text.TextUtils.isEmpty;
 public class RegisterActivity extends AppCompatActivity {
 
     TextView content;
-    EditText fname;
-    EditText lname;
     EditText email, add, dofb, d_license;
     Button reg;
-    String First_Name, Last_Name, Email, Address, DOB, License;
+    String Email, Password,  DeviceId;
+    int License;
+
+    Enc encryption = new Enc();
+
 
 
     @Override
@@ -41,9 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
 
-        content    =  findViewById( R.id.content );
-        fname = findViewById(R.id.first_name);
-        lname = findViewById(R.id.last_name);
+        content = findViewById(R.id.content);
+
         email = findViewById(R.id.email_signup);
         add = findViewById(R.id.address);
         dofb = findViewById(R.id.dob);
@@ -52,12 +54,14 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
+
         reg.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                if (isEmpty(email.getText().toString()) || isEmpty(fname.getText().toString()) || isEmpty(lname.getText().toString()) ||
-                isEmpty(add.getText().toString()) || isEmpty(dofb.getText().toString()) || isEmpty(d_license.getText().toString()))
+                if (isEmpty(email.getText().toString()) ||
+                isEmpty(add.getText().toString()) || isEmpty(d_license.getText().toString()))
                 {
                     Toast t = Toast.makeText(RegisterActivity.this, "All inputs required", Toast.LENGTH_LONG);
                     t.show();
@@ -85,27 +89,38 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+
+
     // Create GetText Metod
     class AsyncT extends AsyncTask<Void,Void,Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
 
-            AsyncMethod();
+
+            try {
+                AsyncMethod();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             return null;
         }
 
     }
 
-    private void AsyncMethod() {
-        First_Name = fname.getText().toString();
-        Last_Name = lname.getText().toString();
-        DOB = dofb.getText().toString();
+    private void AsyncMethod() throws Exception {
+
+       // DOB = dofb.getText().toString();
         Email = email.getText().toString();
-        License = d_license.getText().toString();
-        Address = add.getText().toString();
+        License = Integer.valueOf(d_license.getText().toString());
+        Password = add.getText().toString();
+        String Pass;
+        Pass = encryption.Encrypt(Password, "Password");
+        Log.d("EncryptedPassword", Password);
         try {
-            URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/user"); //Enter URL here
+            URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/register"); //Enter URL here
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
@@ -113,12 +128,13 @@ public class RegisterActivity extends AppCompatActivity {
             httpURLConnection.connect();
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("FirstName", First_Name);
-            jsonObject.put("LastName", Last_Name);
+
             jsonObject.put("Email", Email);
-            jsonObject.put("DOB", DOB);
-            jsonObject.put("License", License);
-            jsonObject.put("User_Password", Address);
+         //   jsonObject.put("Voter_Id", DOB);
+            jsonObject.put("PIN", License);
+
+            jsonObject.put("User_Password", Pass);
+            jsonObject.put("DeviceId", getId());
             Log.d("AsyncMethod: ",jsonObject.toString());
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
@@ -145,6 +161,28 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    public String getId(){
+        //TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        /*
+        if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+
+        }
+        String did = telephonyManager.getImei();
+        Log.d( "onDeviceId: ","" + did);
+
+         */
+        return android_id;
+    }
+/* */
 }
 
 

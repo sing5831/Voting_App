@@ -28,10 +28,10 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="393dp"
         android:background="@drawable/et_custom"
-        android:hint="E_mail"
-        android:text=""
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="15dp"
+        android:text=""
         android:textSize="15sp" />
 
     <EditText
@@ -44,10 +44,10 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="334dp"
         android:background="@drawable/et_custom"
-        android:hint="PIN"
-        android:text=""
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="15dp"
+        android:text=""
         android:textSize="15sp" />
 
     <Button

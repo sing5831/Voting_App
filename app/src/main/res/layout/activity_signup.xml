@@ -22,34 +22,6 @@
         android:textSize="50sp" />
 
     <EditText
-        android:id="@+id/first_name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="504dp"
-        android:background="@drawable/et_custom"
-        android:hint="First Name"
-        android:inputType="textPersonName"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <EditText
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="443dp"
-        android:background="@drawable/et_custom"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <EditText
         android:id="@+id/email_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -72,7 +44,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="261dp"
         android:background="@drawable/et_custom"
-        android:hint="Date of Birth(DDMMYYYY)"
+        android:hint="Code"
         android:inputType="date"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -100,7 +72,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="201dp"
         android:background="@drawable/et_custom"
-        android:hint="Driving License Number"
+        android:hint="Voter ID"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />
