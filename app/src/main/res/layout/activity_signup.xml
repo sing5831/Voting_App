@@ -14,10 +14,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="571dp"
-        android:text="Register"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="519dp"
+        android:text=" Register Device"
         android:textAlignment="center"
         android:textSize="50sp" />
 
@@ -32,20 +32,6 @@
         android:background="@drawable/et_custom"
         android:hint="E_mail"
         android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:textSize="15sp" />
-
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="261dp"
-        android:background="@drawable/et_custom"
-        android:hint="Code"
-        android:inputType="date"
         android:padding="15dp"
         android:textSize="15sp" />
 
@@ -70,9 +56,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="201dp"
+        android:layout_marginBottom="256dp"
         android:background="@drawable/et_custom"
-        android:hint="Voter ID"
+        android:hint="PIN"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />
@@ -90,25 +76,6 @@
         android:background="@drawable/btn_custom"
         android:text="Next"
         android:textColor="@android:color/white" />
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_above="@id/swipeLeft"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_arrow_left" />
-
-
-    <TextView
-        android:id="@+id/swipeLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginBottom="20dp"
-        android:text="swipe_right_for_login"
-        android:textSize="15sp" />
 
 
 </RelativeLayout>

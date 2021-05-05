@@ -1,5 +1,7 @@
 package com.example.votingapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class BallotActivity extends AppCompatActivity {
     ArrayList<BallotModel> arrayList;
     int selectedItem = -1;
     UserModel usermodel = new UserModel();
+    Enc encryption = new Enc();
 
     @Override
     public void onBackPressed() {
@@ -51,6 +54,24 @@ public class BallotActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = position;
+                shouwDialog();
+
+            }
+        });
+
+        arrayList = new ArrayList<>();
+        new fetchData().execute();
+    }
+
+    public void shouwDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirmion");
+        builder.setMessage("Are you sure, you want to Vote? Press Yes to Vote");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
                 AsyncT asyncT = new AsyncT();
                 asyncT.execute();
 
@@ -58,9 +79,20 @@ public class BallotActivity extends AppCompatActivity {
             }
         });
 
-        arrayList = new ArrayList<>();
-        new fetchData().execute();
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
+
     public void openConfirmationActivity(){
         Intent intent = new Intent(this, ConfirmationActivity.class);
         startActivity(intent);
@@ -139,18 +171,24 @@ public class BallotActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            AsyncMethodVote();
+            try {
+                AsyncMethodVote();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
     }
 
-    private void AsyncMethodVote() {
+    private void AsyncMethodVote() throws Exception {
         String uemail = usermodel.getEmail();
 
         BallotModel model = arrayList.get(selectedItem);
         String cid= model.getId();
         String cname = model.getName();
+        String e_cname;
+        e_cname = encryption.Encrypt(cname, "Password");
         int vote = 1;
 
         try {
@@ -163,7 +201,7 @@ public class BallotActivity extends AppCompatActivity {
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("CandidateId", cid);
-            jsonObject.put("CandidateName", cname);
+            jsonObject.put("CandidateName", e_cname);
             jsonObject.put("Votes", vote);
             jsonObject.put("UserEmail", uemail);
 

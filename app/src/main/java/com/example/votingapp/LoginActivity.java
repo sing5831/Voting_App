@@ -3,6 +3,7 @@ package com.example.votingapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, pin;
     Button btnLogin, btnSignup;
     String username, passwd;
+    Enc encryption = new Enc();
 
     @Override
     public void onBackPressed() {
@@ -83,7 +85,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
 
-            String resp = AsyncMethodLogin();
+            String resp = null;
+            try {
+                resp = AsyncMethodLogin();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return resp;
         }
 
@@ -105,6 +112,11 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("Email", username);
                     startActivity(intent);
                 }
+                else if(s.equals("\"Failure\"")){
+
+                    Toast t = Toast.makeText(LoginActivity.this, "Device Id Does Not Match the Registered Device!", Toast.LENGTH_LONG);
+                    t.show();
+                }
                 else{
                     Toast t = Toast.makeText(LoginActivity.this, "Incorrect Username or Password", Toast.LENGTH_LONG);
                     t.show();
@@ -113,10 +125,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private String AsyncMethodLogin() {
+    private String AsyncMethodLogin() throws Exception {
 
         username = email.getText().toString();
+        String e_uname;
+        e_uname = encryption.Encrypt(username, "Password");
         passwd = pin.getText().toString();
+        String e_pass;
+        e_pass = encryption.Encrypt(passwd, "Password");
+        String e_did;
+        e_did = encryption.Encrypt(getId(), "Password");
 
        // String email = "From Mobile";
        // String pass = "Navneet24";
@@ -131,8 +149,9 @@ public class LoginActivity extends AppCompatActivity {
             httpURLConnection.connect();
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("Email", username);
-            jsonObject.put("User_Password", passwd);
+            jsonObject.put("Email", e_uname);
+            jsonObject.put("User_Password", e_pass);
+            jsonObject.put("DeviceId", e_did);
 
             Log.d("AsyncMethodLogin: ",jsonObject.toString());
 
@@ -177,5 +196,14 @@ public class LoginActivity extends AppCompatActivity {
 
         return resp;
     }
+
+    public String getId(){
+
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        return android_id;
+    }
+
 }
 

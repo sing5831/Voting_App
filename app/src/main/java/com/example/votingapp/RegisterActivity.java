@@ -31,8 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView content;
     EditText email, add, dofb, d_license;
     Button reg;
-    String Email, Password,  DeviceId;
-    int License;
+    String Email, Password,  VoterId;
+    int PIN;
 
     Enc encryption = new Enc();
 
@@ -48,12 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email_signup);
         add = findViewById(R.id.address);
-        dofb = findViewById(R.id.dob);
+     //   dofb = findViewById(R.id.dob);
         d_license = findViewById(R.id.license);
         reg = findViewById(R.id.btn_nxt);
-
-
-
 
 
         reg.setOnClickListener(new View.OnClickListener(){
@@ -65,14 +62,13 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     Toast t = Toast.makeText(RegisterActivity.this, "All inputs required", Toast.LENGTH_LONG);
                     t.show();
-
                 }
                 else{
                     try{
 
                         AsyncT asyncT = new AsyncT();
                         asyncT.execute();
-                        Toast t = Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_LONG);
+                        Toast t = Toast.makeText(RegisterActivity.this, "Device Registered Successfully!", Toast.LENGTH_LONG);
                         t.show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
@@ -96,28 +92,30 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
-
             try {
                 AsyncMethod();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
             return null;
         }
+
+
 
     }
 
     private void AsyncMethod() throws Exception {
 
-       // DOB = dofb.getText().toString();
+       // VoterId = dofb.getText().toString();
         Email = email.getText().toString();
-        License = Integer.valueOf(d_license.getText().toString());
+        String e_email;
+        e_email = encryption.Encrypt(Email, "Password");
+        PIN = Integer.valueOf(d_license.getText().toString());
         Password = add.getText().toString();
         String Pass;
         Pass = encryption.Encrypt(Password, "Password");
+        String e_did;
+        e_did = encryption.Encrypt(getId(), "Password");
         Log.d("EncryptedPassword", Password);
         try {
             URL url = new URL("https://mobilevotingapp.azurewebsites.net/api/register"); //Enter URL here
@@ -129,12 +127,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("Email", Email);
-         //   jsonObject.put("Voter_Id", DOB);
-            jsonObject.put("PIN", License);
+            jsonObject.put("Email", e_email);
+       //     jsonObject.put("VoterId", VoterId);
+            jsonObject.put("PIN", PIN);
 
             jsonObject.put("User_Password", Pass);
-            jsonObject.put("DeviceId", getId());
+            jsonObject.put("DeviceId", e_did);
             Log.d("AsyncMethod: ",jsonObject.toString());
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
@@ -165,24 +163,10 @@ public class RegisterActivity extends AppCompatActivity {
         //TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        /*
-        if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
 
-        }
-        String did = telephonyManager.getImei();
-        Log.d( "onDeviceId: ","" + did);
-
-         */
         return android_id;
     }
-/* */
+
 }
 
 

@@ -22,17 +22,19 @@ public class Enc {
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
 
         byte[] results = new byte[text.length()];
+        String decryptedValue="";
         //BASE64Decoder decoder = new BASE64Decoder();
         try {
             // byte[] encVal = c.doFinal(Data.getBytes());
             //String encryptedValue = android.util.Base64.encodeToString(encVal, Base64.DEFAULT);
             results = cipher.doFinal(text.getBytes());
-            String encryptedValue = Base64.encodeToString(results, Base64.DEFAULT);
+            byte[] encryptedValue = Base64.decode(results, Base64.DEFAULT);
+            decryptedValue = new String(encryptedValue);
         } catch (Exception e) {
             Log.i("Erron in Decryption", e.toString());
         }
         Log.i("Data", new String(results, "UTF-8"));
-        return new String(results, "UTF-8"); // it returns the result as a String
+        return decryptedValue; // it returns the result as a String
     }
 
     public static String Encrypt(String text, String key) throws Exception {
